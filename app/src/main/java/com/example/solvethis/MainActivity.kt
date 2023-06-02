@@ -1,12 +1,16 @@
 package com.example.solvethis
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.graphics.drawable.toDrawable
+import androidx.core.graphics.toColor
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -27,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var userAnswerLabel: EditText
     private lateinit var btnCheck: Button
     private lateinit var btnStart: Button
+    private lateinit var exampleLayout: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,9 +46,12 @@ class MainActivity : AppCompatActivity() {
         userAnswerLabel = findViewById(R.id.editTextAnswer)
         btnCheck = findViewById(R.id.btnCheck)
         btnStart = findViewById(R.id.btnStart)
+        exampleLayout = findViewById(R.id.linearLayoutExample)
     }
 
     fun btnStartClick(view: View) {
+        exampleLayout.background = Color.rgb(255, 255, 255).toDrawable()
+
         firstOperand = Random.nextInt(10, 100)
         secondOperand = Random.nextInt(10, 100)
 
@@ -85,11 +93,13 @@ class MainActivity : AppCompatActivity() {
         {
             correctCounter++
             correctAmountLabel.text = correctCounter.toString()
+            exampleLayout.background = Color.rgb(0, 255, 0).toDrawable()
         }
         else
         {
             wrongCounter++
             wrongAmountLabel.text = wrongCounter.toString()
+            exampleLayout.background = Color.rgb(255, 0, 0).toDrawable()
         }
 
         percentageCorrectLabel.text = String.format("%.2f", correctCounter.toDouble() / totalCounter.toDouble() * 100) + "%"
